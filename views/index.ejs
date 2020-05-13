@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="robots" content="noimageindex, nofollow, nosnippet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+  <title>Chat App</title>
+  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  
+  <div class="container">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img style="max-height: initial;" src="https://cdn3.iconfinder.com/data/icons/message-and-communication-sets/50/Icon_Text_Message-33-512.png" width="64" height="64">
+        </a>
+    
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    
+      <!--     
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            
+            <a class="navbar-item">
+              Home
+            </a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More
+            </a>
+    
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                About
+              </a>
+              <a class="navbar-item">
+                Jobs
+              </a>
+              <a class="navbar-item">
+                Contact
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item">
+                Report an issue
+              </a>
+            </div>
+          </div>
+        </div> 
+      </div>
+    -->
+    </nav>
+
+
+    <div id="create-room">
+      <form action="/room" method="POST">
+        <input name="room" type="text" class="input is-small is-rounded" placeholder="Enter name of new room" autocomplete="off" required>
+        <button type="submit" class="add-room-btn button is-info is-small is-rounded is-outlined">Add New Room</button>
+      </form>
+    </div>
+    <hr>
+
+    <div id="room-container">
+      <h1>Available Rooms</h1>
+      <ul>
+        <% Object.keys(rooms).forEach(room => { %>
+
+        <li>
+          <h2><%= room %></h2> <a class="join-btn button is-primary is-small is-rounded is-outlined"
+            href="/<%= room %>">Join</a>
+            <p>-</p>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+
+
+  <style>
+    #room-container {
+
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+
+    }
+
+    #create-room input {
+      width: 70%;
+    }
+
+    .add-room-btn {
+      width: 28%;
+    }
+
+    #create-room {
+
+    width: 100%;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 15px;
+
+    }
+
+    ul {
+      margin: 10px;
+    }
+
+    a.join-btn {
+    }
+
+    h1 {
+      font-size: xx-large;
+    }
+
+    h2 {
+      font-size: larger;
+    }
+  </style>
+</body>
+
+</html>

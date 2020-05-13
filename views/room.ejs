@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="robots" content="noimageindex, nofollow, nosnippet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+  <title>Chat App</title>
+  <script>
+    const roomName = "<%= roomName %>"
+  </script>
+  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script defer src="script.js"></script>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    #message-container {
+      width: 100%;
+      max-width: 800px;
+      padding: 10px;
+      margin: 0 auto;
+      margin-bottom: 60px;
+    }
+
+    #message-container p {
+      padding: 5px 15px;
+      border-radius: 17px;
+      width: fit-content;
+      margin-bottom: 0.5em !important;
+    }
+
+    .incoming-msg {
+      margin-right: auto;
+      color: #fff;
+      background-color: rgba(156, 39, 176, 0.70);
+      border-top-left-radius: 6px !important;
+    }
+
+    .outgoing-msg {
+      margin-left: auto;
+      background-color: #f7f7f7;
+
+      border-top-right-radius: 6px !important;
+    }
+
+
+    #send-container {
+      /* position: fixed; */
+      padding-bottom: 30px;
+      bottom: 0;
+      background-color: white;
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      margin: 0 auto;
+      padding: 10px;
+    }
+
+    #message-container p.msg.joined {
+      margin: auto;
+      padding: 2px 8px;
+      background-color: #01d1b2;
+      color: #fff;
+      font-size: x-small;
+      border-radius: 17px !important;
+    }
+
+    #message-container p.msg.exited {
+      margin: auto;
+      padding: 2px 8px;
+      background-color: #ff5c5c;
+      color: #fff;
+      font-size: x-small;
+      border-radius: 17px !important;
+    }
+
+    #message-input {
+      flex-grow: 1;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: xx-large;
+    }
+
+    .compose {
+      position: fixed;
+      margin: 0 auto;
+      width: 100%;
+      left: 0;
+      bottom: 0px;
+      background: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  
+  
+  
+  <div class="container">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img style="max-height: initial;" src="https://cdn3.iconfinder.com/data/icons/message-and-communication-sets/50/Icon_Text_Message-33-512.png" width="64" height="64">
+        </a>
+    
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    
+      <!--     
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            
+            <a class="navbar-item">
+              Home
+            </a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More
+            </a>
+    
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                About
+              </a>
+              <a class="navbar-item">
+                Jobs
+              </a>
+              <a class="navbar-item">
+                Contact
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item">
+                Report an issue
+              </a>
+            </div>
+          </div>
+        </div> 
+      </div>
+    -->
+    </nav>
+
+    <div class="hero">
+      <h1><%= roomName %></h1>
+    </div>
+    <hr>
+    <div class="chat-wrapper">
+      <div id="message-container"></div>
+    </div>
+    <div class="compose">
+      <form id="send-container">
+        <input type="text" id="message-input" class="input is-rounded" autocomplete="off"
+          placeholder="Type a message...">
+        <button id="send-button" type="submit" class="button is-rounded is-primary">Send</button>
+      </form>
+    </div>
+
+  </div>
+  <script>
+    window.onbeforeunload = function (e) {
+      return 'Are you cure you want to leave this room?';
+    };
+  </script>
+</body>
+
+</html>
