@@ -32,7 +32,8 @@ socket.on('room-created', room => {
 })
 
 socket.on('chat-message', data => {
-  appendMessage(`${data.name + socket.id} : ${data.message}`)
+  appendMessage(`${data.name} : ${data.message}`)
+  window.scrollTo(0,document.body.scrollHeight)
 })
 
 socket.on('user-connected', name => {
@@ -56,4 +57,5 @@ function appendMessage(message, userid, cssClass) {
   }
   messageElement.innerText = message
   messageContainer.append(messageElement)
+  window.scrollTo(0,document.body.scrollHeight); // Scroll down 
 }
