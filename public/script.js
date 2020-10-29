@@ -17,6 +17,7 @@ if (messageForm != null) {
       appendMessage(`${message}`, socket.id)
       socket.emit('send-chat-message', roomName, message)
       messageInput.value = ''
+      document.getElementById("message-input").focus();
     }
   })
 }
@@ -32,16 +33,19 @@ socket.on('room-created', room => {
 })
 
 socket.on('chat-message', data => {
-  appendMessage(`${data.name} : ${data.message}`)
+  appendMessage(`<span>${data.name} </span>: ${data.message}`)
   window.scrollTo(0,document.body.scrollHeight)
+  document.getElementById("message-input").focus();
 })
 
 socket.on('user-connected', name => {
   appendMessage(`${name} connected`, null, 'joined')
+  return Promise.resolve("Dummy response - User Connected")
 })
 
 socket.on('user-disconnected', name => {
   appendMessage(`${name} disconnected`, null, 'exited')
+  return Promise.resolve("Dummy response - User Disconnected")
 })
 
 function appendMessage(message, userid, cssClass) {
@@ -55,7 +59,7 @@ function appendMessage(message, userid, cssClass) {
   if (cssClass != null ) {
     messageElement.classList.add(cssClass)
   }
-  messageElement.innerText = message
+  messageElement.innerHTML = message
   messageContainer.append(messageElement)
   window.scrollTo(0,document.body.scrollHeight); // Scroll down 
 }
