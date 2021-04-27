@@ -5,20 +5,21 @@ const messageForm = document.getElementById('send-container')
 const messageInput = document.getElementById('message-input')
 
 if (messageForm != null) {
-	const name = prompt('What is your name?')
-	appendMessage('You joined as ' + name, socket.id, 'joined')
-	socket.emit('new-user', roomName, name)
+  const name = prompt('What is your name?')
+  appendMessage('You joined as ' + name, socket.id, 'joined')
+  socket.emit('new-user', roomName, name)
 
-	messageForm.addEventListener('submit', e => {
-		e.preventDefault()
-		const message = messageInput.value
+  messageForm.addEventListener('submit', e => {
+    e.preventDefault()
+    const message = messageInput.value
 
-		if (message != '') { // send message if input is not empty
-			appendMessage(`${message}`, socket.id)
-			socket.emit('send-chat-message', roomName, message)
-			messageInput.value = ''
-		}
-	})
+    if ( message != '' ) { // send message if input is not empty
+      appendMessage(`${message}`, socket.id)
+      socket.emit('send-chat-message', roomName, message)
+      messageInput.value = ''
+      document.getElementById("message-input").focus();
+    }
+  })
 }
 
 socket.on('room-created', room => {
@@ -32,28 +33,33 @@ socket.on('room-created', room => {
 })
 
 socket.on('chat-message', data => {
-	appendMessage(`${data.name + '::: ' + socket.id} : ${data.message}`)
+  appendMessage(`<span>${data.name} </span>: ${data.message}`)
+  window.scrollTo(0,document.body.scrollHeight)
+  document.getElementById("message-input").focus();
 })
 
 socket.on('user-connected', name => {
-	appendMessage(`${name} connected`, null, 'joined')
+  appendMessage(`${name} connected`, null, 'joined')
+  return Promise.resolve("Dummy response - User Connected")
 })
 
 socket.on('user-disconnected', name => {
-	appendMessage(`${name} disconnected`, null, 'exited')
+  appendMessage(`${name} disconnected`, null, 'exited')
+  return Promise.resolve("Dummy response - User Disconnected")
 })
 
 function appendMessage(message, userid, cssClass) {
-	const messageElement = document.createElement('p')
-	messageElement.className = 'msg'
-	if (userid != null) {
-		messageElement.classList.add('outgoing-msg')
-	} else {
-		messageElement.classList.add('incoming-msg')
-	}
-	if (cssClass != null) {
-		messageElement.classList.add(cssClass)
-	}
-	messageElement.innerText = message
-	messageContainer.append(messageElement)
+  const messageElement = document.createElement('p')
+  messageElement.className = 'msg'
+  if (userid != null ) {
+    messageElement.classList.add('outgoing-msg')
+  } else {
+    messageElement.classList.add('incoming-msg')
+  }
+  if (cssClass != null ) {
+    messageElement.classList.add(cssClass)
+  }
+  messageElement.innerHTML = message
+  messageContainer.append(messageElement)
+  window.scrollTo(0,document.body.scrollHeight); // Scroll down 
 }
