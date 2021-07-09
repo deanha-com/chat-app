@@ -11,6 +11,12 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 
 const rooms = { }
+app.use(function(req, res, next) {
+  if ((req.get('X-Forwarded-Proto') !== 'https')) {
+    res.redirect('https://' + req.get('Host') + req.url);
+  } else
+    next();
+});
 
 app.get('/', (req, res) => {
   res.render('index', { rooms: rooms })
