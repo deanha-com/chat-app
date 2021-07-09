@@ -11,7 +11,7 @@
   <script>
     const roomName = "<%= roomName %>"
   </script>
-  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="http://localhost:3001/socket.io/socket.io.js"></script>
   <script defer src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script defer src="script.js"></script>
   <style>
@@ -32,23 +32,40 @@
 
     #message-container p {
       padding: 5px 15px;
-      border-radius: 17px;
+      border-radius: 10px;
       width: fit-content;
-      margin-bottom: 0.5em !important;
+      margin-bottom: 0.8em !important;
+    }
+
+    span.ts {
+      position: relative;
+    color: #8e8e8e;
+    top: 27px;
+    padding: 2px 3px;
+    border-radius: 25px;
+    font-size: 7px;
+    display: inline-block;
+    right: -15px;
+        float: right;
+    }
+
+    .user-socketid {
+      color: #000000;
+    font-size: 9px;
     }
 
     .incoming-msg {
       margin-right: auto;
       color: #fff;
       background-color: rgba(156, 39, 176, 0.70);
-      border-top-left-radius: 6px !important;
+      border-top-left-radius: 3px !important;
     }
 
     .outgoing-msg {
       margin-left: auto;
       background-color: #f7f7f7;
 
-      border-top-right-radius: 6px !important;
+      border-top-right-radius: 3px !important;
     }
 
 
